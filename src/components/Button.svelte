@@ -1,19 +1,21 @@
-<script>
+<script lang="ts">
 	import CircleSpinner from './CircleSpinner.svelte';
 
 	export let loading = false;
 	export let status = '';
 	export let color = 'default' || 'primary';
 	export let onClick = () => {};
-	export let height = 'auto'; // default value for height
-	export let width = 'auto'; // default value for width
+	export let height = 'auto';
+	export let width = 'auto';
 </script>
 
 <button
 	class={`button ${color}`}
 	on:click={onClick}
 	disabled={loading}
-	style={`height:${height}px; width:${width}px`}
+	style={`height:${height === 'auto' ? 'auto' : height + 'px'}; width:${
+		width === 'auto' ? 'auto' : width + 'px'
+	}`}
 >
 	<div class={loading ? 'inner fade' : 'inner normal'}>
 		{#if !loading}
