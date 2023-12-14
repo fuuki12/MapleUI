@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { spring } from 'svelte/motion';
 	import Button from '../../src/components/Button.svelte';
+	import AutoComplate from '../../src/components/AutoComplate.svelte';
+	import CheckBox from '../../src/components/CheckBox.svelte';
+	import Input from '../../src/components/Input.svelte';
+	import TextArea from '../../src/components/TextArea.svelte';
+	import Select from '../../src/components/Select.svelte';
 	let count = 0;
 
 	const displayed_count = spring();
@@ -14,10 +19,8 @@
 </script>
 
 <div class="counter">
-	<Button onClick={() => (count -= 1)} height="34" width="12">
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5" />
-		</svg>
+	<Button onClick={() => (count -= 1)}>
+		{'-'}
 	</Button>
 
 	<div class="counter-viewport">
@@ -28,10 +31,37 @@
 	</div>
 	<Button onClick={() => (count = 0)} color="primary">Reset</Button>
 	<Button onClick={() => (count += 1)}>
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
-		</svg>
+		{'+'}
 	</Button>
+</div>
+
+<div class="counter">
+	<AutoComplate items={['a', 'b', 'c']} color="primary" />
+</div>
+
+<div class="counter-column">
+	<CheckBox label="hoge" />
+	<CheckBox label="fuga" checked />
+</div>
+
+<div class="counter-column">
+	<Input placeholder="hoge" width="720" />
+	<Input placeholder="fuga" isError errorMessage="error" />
+</div>
+
+<div class="counter-column">
+	<TextArea placeholder="hoge" width="720" />
+	<TextArea placeholder="fuga" isError errorMessage="error" />
+</div>
+
+<div class="counter-column">
+	<Select
+		items={[
+			{ key: '1', label: 'hoge' },
+			{ key: '2', label: 'fuga' },
+			{ key: '3', label: 'lion' }
+		]}
+	/>
 </div>
 
 <style>
@@ -40,6 +70,10 @@
 		border-top: 1px solid rgba(0, 0, 0, 0.1);
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		margin: 1rem 0;
+	}
+	.counter-column {
+		display: flex;
+		flex-direction: column;
 	}
 
 	.counter button {
